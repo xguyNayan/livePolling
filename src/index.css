@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+/* Base styles that won't be overridden by Tailwind */
+body {
+  font-family: 'Sora', sans-serif;
+}
+
+@layer base {
+  html {
+    font-family: 'Sora', sans-serif;
+  }
+}
