@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../store';
 import { selectOption, submitAnswer, fetchActivePoll, fetchActivePolls, submitAnswerAsync, fetchPolls } from '../store/slices/pollsSlice';
