@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
-    sourcemap: false, // Disable source maps for production builds
-    minify: 'terser', // Use terser for better minification
+    sourcemap: false,
+    minify: 'terser', 
   }
 })
