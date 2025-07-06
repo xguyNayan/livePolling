@@ -14,7 +14,6 @@ const ActivePoll = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   
-  // Extract currentPoll from state but not loading since we're handling updates seamlessly
   const { currentPoll } = useSelector((state: RootState) => state.polls);
   const [timeRemaining, setTimeRemaining] = useState<number>(0);
   const [students, setStudents] = useState<Array<{id: string, name: string}>>([]);
