@@ -26,8 +26,8 @@ export type ChatMessage = {
   isTeacher: boolean;
 };
 
-// Use environment variable for the socket server URL, fallback to localhost for development
-const SOCKET_SERVER_URL = import.meta.env.VITE_SOCKET_SERVER_URL || 'http://localhost:3001';
+// Use environment variable for the socket server URL, fallback to the deployed Render URL
+const SOCKET_SERVER_URL = import.meta.env.VITE_SOCKET_SERVER_URL || 'https://livepolling-gpjh.onrender.com';
 
 class SocketService {
   private socket: Socket | null = null;

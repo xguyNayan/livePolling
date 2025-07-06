@@ -54,7 +54,7 @@ const StudentPoll = () => {
       
       // Set up socket listener for new polls
       const handlePollCreated = () => {
-        console.log('New poll detected, refreshing active polls');
+        
         // Reset any previous submission state
         setHasSubmitted(false);
         setSubmissionError(null);
@@ -67,14 +67,14 @@ const StudentPoll = () => {
       
       // Set up listener for being kicked out
       const handleKicked = () => {
-        console.log('You have been kicked out by the teacher');
+        
         setKickedMessage('You have been removed from the session by the teacher.');
         setShowKickedModal(true);
       };
       
       // Set up socket listener for poll ended events
       const handlePollEnded = () => {
-        console.log('Poll ended, refreshing polls');
+        
         // Fetch the latest polls
         dispatch(fetchActivePoll()); // For backward compatibility
         dispatch(fetchActivePolls()); // Get all active polls

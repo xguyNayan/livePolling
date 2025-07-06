@@ -3,6 +3,9 @@ const http = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
 
+// Use environment variable for port or default to 3001
+const PORT = process.env.PORT || 3001;
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -10,7 +13,7 @@ app.use(express.json());
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173", // Vite's default port
+    origin: ["http://localhost:5173", "https://livepolling.netlify.app", "*"], // Allow local dev and production URLs
     methods: ["GET", "POST"]
   }
 });
@@ -25,11 +28,8 @@ const chatMessages = []; // Store recent chat messages
 
 // Socket.IO event handlers
 io.on('connection', (socket) => {
-  console.log(`User connected: ${socket.id}`);
-
   // Teacher events
   socket.on('join_teacher', () => {
-    console.log(`Teacher joined: ${socket.id}`);
     socket.join('teachers');
     
     // Send current students list to the teacher
@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('create_poll', (pollData) => {
-    console.log('New poll created:', pollData);
+   
     
     // Clear previous timer if exists
     if (activePoll.timer) {
@@ -92,7 +92,7 @@ io.on('connection', (socket) => {
 
   // Handle ending a poll manually
   socket.on('end_poll', (pollId) => {
-    console.log(`Poll ended manually by teacher: ${pollId}`);
+    
     
     if (activePoll.data && activePoll.data.id === pollId) {
       // Clear the timer
@@ -110,7 +110,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('kick_student', (studentId) => {
-    console.log(`Kicking student: ${studentId}`);
+    
     
     if (students.has(studentId)) {
       const student = students.get(studentId);
@@ -158,13 +158,12 @@ io.on('connection', (socket) => {
     
     // Broadcast to all clients
     io.emit('chat_message', message);
-    console.log(`Chat message from ${sender}: ${text}`);
+    
   });
 
   // Student events
   socket.on('join_student', (data) => {
     const { name } = data;
-    console.log(`Student joined: ${name} (${socket.id})`);
     
     const studentId = socket.id;
     socket.data.studentId = studentId;
@@ -198,7 +197,6 @@ io.on('connection', (socket) => {
 
   socket.on('submit_answer', (data) => {
     const { pollId, optionId } = data;
-    console.log(`Answer submitted by ${socket.id}: ${optionId}`);
     
     if (activePoll.data && activePoll.data.id === pollId && activePoll.data.isActive) {
       // Update option votes
@@ -219,7 +217,6 @@ io.on('connection', (socket) => {
       // Check if all students have submitted
       const allSubmitted = Array.from(students.values()).every(student => student.hasSubmitted);
       if (allSubmitted && students.size > 0) {
-        console.log('All students have submitted, ending poll');
         if (activePoll.timer) {
           clearInterval(activePoll.timer);
           activePoll.timer = null;
@@ -232,7 +229,7 @@ io.on('connection', (socket) => {
 
   // Handle disconnection
   socket.on('disconnect', () => {
-    console.log(`User disconnected: ${socket.id}`);
+    
     
     // If this was a student, remove them from the students list
     if (socket.data && socket.data.studentId) {
@@ -262,7 +259,6 @@ app.get('/api/health', (req, res) => {
 });
 
 // Start server
-const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  
 });

@@ -59,7 +59,6 @@ const ActivePoll = () => {
     // Register callback for poll timeout events
     socketService.onPollTimeout((pollId) => {
       if (!isMounted.current) return;
-      console.log('Poll timed out:', pollId);
       
       if (currentPoll && currentPoll.id === pollId) {
         // Automatically end the poll when timer reaches zero

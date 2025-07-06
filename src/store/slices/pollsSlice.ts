@@ -73,7 +73,7 @@ export const submitAnswerAsync = createAsyncThunk(
     try {
       return await firebaseService.submitAnswer(pollId, optionId);
     } catch (error) {
-      console.log('Error submitting answer:', error);
+     
       return rejectWithValue((error as Error).message);
     }
   }
@@ -89,7 +89,7 @@ export const endPollAsync = createAsyncThunk(
       // Update the poll in Firebase
       return await firebaseService.endPoll(pollId);
     } catch (error) {
-      console.log('Error ending poll:', error);
+      
       return rejectWithValue((error as Error).message);
     }
   }
