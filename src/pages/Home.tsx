@@ -16,7 +16,7 @@ const Home = () => {
 
   const handleContinue = () => {
     if (selectedRole) {
-      // Store role in localStorage instead of Redux
+     
       localStorage.setItem('userRole', selectedRole);
       navigate(selectedRole === 'teacher' ? '/teacher' : '/student');
     }
