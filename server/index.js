@@ -3,7 +3,6 @@ const http = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
 
-// Use environment variable for port or default to 3001
 const PORT = process.env.PORT || 3001;
 
 const app = express();
