@@ -26,7 +26,7 @@ const Teacher = () => {
     // Fetch all polls for history
     dispatch(fetchPolls());
     
-    // We still fetch active poll to have it in state, but don't redirect
+    // fetch active poll to have it in state, but don't redirect
     dispatch(fetchActivePoll())
       .catch((error) => {
         console.error('Error fetching active poll:', error);
